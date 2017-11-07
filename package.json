@@ -1,0 +1,24 @@
+{
+  "name": "ece-322-testing-project",
+  "version": "1.0.0",
+  "description": "Testing moment.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Megasonic988/ECE-322-Testing-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Megasonic988/ECE-322-Testing-Project/issues"
+  },
+  "homepage": "https://github.com/Megasonic988/ECE-322-Testing-Project#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0"
+  }
+}
