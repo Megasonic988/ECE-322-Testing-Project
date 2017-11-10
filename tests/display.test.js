@@ -2,23 +2,23 @@ const moment = require('../moment/moment').default;
 const chai = require('chai');
 const expect = chai.expect;
 
+// Found errors:
+// moment("abcd-12-1") // invalid year defaults to 2001
+// moment(2017).format("apple") // mixture of string and date
+// moment("2017-2-29") moves to march 1st (up to 31 -> as long as its normally a valid value then it works)
+// moment("2017-02-29") does
+// 1-0-29 switches order
+
 /**
  * Testing display
  */
-
- describe('Display - White Box', function() {
+ describe('Display - White Box (Coverage)', function() {
 
     /**
      * Test format
      */
-
-     // tokens
-     // localization
-     // escape characters
-     // default
     describe('Format', function() {
 
-        // describe('Displaying with default format (no args)', function() {
         describe('Default (no args)', function() {
 
             it('should display in ISO 8601 format (default)', function(done) {
@@ -33,210 +33,1224 @@ const expect = chai.expect;
             });
         });
 
-        // equivalence classes -> this is now black box? idk
-        // this is testing moment creation, not formatting
-        // do one invalid date and try formatting it
-            // ensure that it is not valid then try to format
-        // almost right string
-        // wrong string
-        // int
-
-        //  moment("abcd-12-1") // invalid year defaults to 2001
-        // moment(2017).format("apple") // mixture of string and date
-        //  moment("2017-2-29") moves to march 1st (up to 31 -> as long as its normally a valid value then it works)
-        //  moment("2017-02-29") does
-        // 1-0-29 switches order
-
         describe('Tokens', function() {
             describe('Month', function() {
-                it('dummy test', function(done) {
-                    done();
+                // numeric value of month 1-12
+                describe('M - numeric value', function() {
+                    it('valid month', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("M");
+
+                        expect(formatted).to.equal("1");
+
+                        done();
+                    });
                 });
+                // cardinal value of month 1st-12th
+                describe('Mo - cardinal value', function() {
+                    it('cardinal month - st', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("Mo");
+
+                        expect(formatted).to.equal("1st");
+
+                        done();
+                    });
+                    it('cardinal month - nd', function(done) {
+                        dateString = '2017-02-15';
+                        date = moment(dateString);
+                        formatted = date.format("Mo");
+
+                        expect(formatted).to.equal("2nd");
+
+                        done();
+                    });
+                    it('cardinal month - rd', function(done) {
+                        dateString = '2017-03-15';
+                        date = moment(dateString);
+                        formatted = date.format("Mo");
+
+                        expect(formatted).to.equal("3rd");
+
+                        done();
+                    });
+                    it('cardinal month - th', function(done) {
+                        dateString = '2017-04-15';
+                        date = moment(dateString);
+                        formatted = date.format("Mo");
+
+                        expect(formatted).to.equal("4th");
+
+                        done();
+                    });
+                });
+                // two digit numeric value of month
+                describe('MM - two digit numeric value', function() {
+                    it('valid single digit month', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("MM");
+
+                        expect(formatted).to.equal("01");
+
+                        done();
+                    });
+                    it('valid double digit month', function(done) {
+                        dateString = '2017-10-15';
+                        date = moment(dateString);
+                        formatted = date.format("MM");
+
+                        expect(formatted).to.equal("10");
+
+                        done();
+                    });
+                });
+                // three letter month name
+                describe('MMM - three letter month name', function() {
+                    it('valid month', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("MMM");
+
+                        expect(formatted).to.equal("Jan");
+
+                        done();
+                    });
+                });
+
+                // full month name
+                describe('MMMM - full month name', function() {
+                    it('valid month', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("MMMM");
+
+                        expect(formatted).to.equal("January");
+
+                        done();
+                    });
+                     });
             });
 
+            // 1,2,3,4
+            // only need valid?
             describe('Quarter', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('Q - numeric value', function() {
+                    it('first numeric', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("Q");
+
+                        expect(formatted).to.equal("1");
+
+                        done();
+                    });
+                    it('second numeric', function(done) {
+                        dateString = '2017-04-15';
+                        date = moment(dateString);
+                        formatted = date.format("Q");
+
+                        expect(formatted).to.equal("2");
+
+                        done();
+                    });
+                    it('third numeric', function(done) {
+                        dateString = '2017-07-15';
+                        date = moment(dateString);
+                        formatted = date.format("Q");
+
+                        expect(formatted).to.equal("3");
+
+                        done();
+                    });
+                    it('fourth numeric', function(done) {
+                        dateString = '2017-10-15';
+                        date = moment(dateString);
+                        formatted = date.format("Q");
+
+                        expect(formatted).to.equal("4");
+
+                        done();
+                    });
+                });
+                // 1st, 2nd, 3rd, 4th
+                describe('Qo - cardinal value', function() {
+                    it('first cardinal', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("Qo");
+
+                        expect(formatted).to.equal("1st");
+
+                        done();
+                    });
+                    it('second cardinal', function(done) {
+                        dateString = '2017-04-15';
+                        date = moment(dateString);
+                        formatted = date.format("Qo");
+
+                        expect(formatted).to.equal("2nd");
+
+                        done();
+                    });
+                    it('third cardinal', function(done) {
+                        dateString = '2017-07-15';
+                        date = moment(dateString);
+                        formatted = date.format("Qo");
+
+                        expect(formatted).to.equal("3rd");
+
+                        done();
+                    });
+                    it('fourth cardinal', function(done) {
+                        dateString = '2017-10-15';
+                        date = moment(dateString);
+                        formatted = date.format("Qo");
+
+                        expect(formatted).to.equal("4th");
+
+                        done();
+                    });
                 });
             });
 
             describe('Day of Month', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('D - numeric value', function() {
+                    it('valid day', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("D");
+
+                        expect(formatted).to.equal("15");
+
+                        done();
+                    });
+                });
+                describe('Do - cardinal value', function() {
+                    it('cardinal day - st', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("Do");
+
+                        expect(formatted).to.equal("1st");
+
+                        done();
+                    });
+                    it('cardinal day - nd', function(done) {
+                        dateString = '2017-01-02';
+                        date = moment(dateString);
+                        formatted = date.format("Do");
+
+                        expect(formatted).to.equal("2nd");
+
+                        done();
+                    });
+                    it('cardinal day - rd', function(done) {
+                        dateString = '2017-01-03';
+                        date = moment(dateString);
+                        formatted = date.format("Do");
+
+                        expect(formatted).to.equal("3rd");
+
+                        done();
+                    });
+                    it('cardinal day - th', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("Do");
+
+                        expect(formatted).to.equal("15th");
+
+                        done();
+                    });
+                });
+                // 2 digits
+                describe('DD - two digit numeric value', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-05';
+                        date = moment(dateString);
+                        formatted = date.format("DD");
+
+                        expect(formatted).to.equal("05");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("DD");
+
+                        expect(formatted).to.equal("15");
+
+                        done();
+                    });
                 });
             });
 
+            // day of year
             describe('Day of Year', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('DDD - numeric value', function() {
+                    it('valid day of year', function(done) {
+                        dateString = '2017-02-15';
+                        date = moment(dateString);
+                        formatted = date.format("DDD");
+
+                        expect(formatted).to.equal("46");
+
+                        done();
+                    });
+                });
+                // cardinal day of year
+                describe('DDDo - cardinal value', function() {
+                    it('cardinal day of year - st', function(done) {
+                        dateString = '2017-02-10';
+                        date = moment(dateString);
+                        formatted = date.format("DDDo");
+
+                        expect(formatted).to.equal("41st");
+
+                        done();
+                    });
+                    it('cardinal day of year - nd', function(done) {
+                        dateString = '2017-02-11';
+                        date = moment(dateString);
+                        formatted = date.format("DDDo");
+
+                        expect(formatted).to.equal("42nd");
+
+                        done();
+                    });
+                    it('cardinal day of year - rd', function(done) {
+                        dateString = '2017-02-12';
+                        date = moment(dateString);
+                        formatted = date.format("DDDo");
+
+                        expect(formatted).to.equal("43rd");
+
+                        done();
+                    });
+                    it('cardinal day of year - th', function(done) {
+                        dateString = '2017-02-13';
+                        date = moment(dateString);
+                        formatted = date.format("DDDo");
+
+                        expect(formatted).to.equal("44th");
+
+                        done();
+                    });
+                });
+
+                // three digit day of year
+                describe('DDDD - three digit value', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-05';
+                        date = moment(dateString);
+                        formatted = date.format("DDDD");
+
+                        expect(formatted).to.equal("005");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("DDDD");
+
+                        expect(formatted).to.equal("015");
+
+                        done();
+                    });
+                    it('triple digit', function(done) {
+                        dateString = '2017-04-15';
+                        date = moment(dateString);
+                        formatted = date.format("DDDD");
+
+                        expect(formatted).to.equal("105");
+
+                        done();
+                    });
                 });
             });
+
+
+
 
             describe('Day of Week', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('d - numeric value', function() {
+                    it('valid day', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("d");
+
+                        expect(formatted).to.equal("0");
+
+                        done();
+                    });
+                });
+                describe('do - cardinal value', function() {
+                    it('cardinal - st', function(done) {
+                        dateString = '2017-01-02';
+                        date = moment(dateString);
+                        formatted = date.format("do");
+
+                        expect(formatted).to.equal("1st");
+
+                        done();
+                    });
+                    it('cardinal - nd', function(done) {
+                        dateString = '2017-01-03';
+                        date = moment(dateString);
+                        formatted = date.format("do");
+
+                        expect(formatted).to.equal("2nd");
+
+                        done();
+                    });
+                    it('cardinal - rd', function(done) {
+                        dateString = '2017-01-04';
+                        date = moment(dateString);
+                        formatted = date.format("do");
+
+                        expect(formatted).to.equal("3rd");
+
+                        done();
+                    });
+                    it('cardinal - th', function(done) {
+                        dateString = '2017-01-05';
+                        date = moment(dateString);
+                        formatted = date.format("do");
+
+                        expect(formatted).to.equal("4th");
+
+                        done();
+                    });
+                });
+
+                describe('dd - two letter name', function() {
+                    it('valid day', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("dd");
+
+                        expect(formatted).to.equal("Su");
+
+                        done();
+                    });
+                });
+                describe('ddd - three letter name', function() {
+                    it('valid day', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("ddd");
+
+                        expect(formatted).to.equal("Sun");
+
+                        done();
+                    });
+                });
+                describe('dddd - full name', function() {
+                    it('valid day', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("dddd");
+
+                        expect(formatted).to.equal("Sunday");
+
+                        done();
+                    });
                 });
             });
+
+
+
+
 
 
             describe('Day of Week (Locale)', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('e - numeric value', function() {
+                    it('valid day', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("e");
+
+                        expect(formatted).to.equal("0");
+
+                        done();
+                    });
                 });
             });
 
 
             describe('Day of Week (ISO)', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('E - numeric value', function() {
+                    it('valid day', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("E");
+
+                        expect(formatted).to.equal("7");
+
+                        done();
+                    });
                 });
             });
 
             describe('Week of Year', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('w - numeric value', function() {
+                    it('valid week', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("w");
+
+                        expect(formatted).to.equal("1");
+
+                        done();
+                    });
+                });
+                describe('wo - cardinal value', function() {
+                    it('cardinal - st', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("wo");
+
+                        expect(formatted).to.equal("1st");
+
+                        done();
+                    });
+                    it('cardinal - nd', function(done) {
+                        dateString = '2017-01-08';
+                        date = moment(dateString);
+                        formatted = date.format("wo");
+
+                        expect(formatted).to.equal("2nd");
+
+                        done();
+                    });
+                    it('cardinal - rd', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("wo");
+
+                        expect(formatted).to.equal("3rd");
+
+                        done();
+                    });
+                    it('cardinal - th', function(done) {
+                        dateString = '2017-01-22';
+                        date = moment(dateString);
+                        formatted = date.format("wo");
+
+                        expect(formatted).to.equal("4th");
+
+                        done();
+                    });
+                });
+                describe('ww - two digit numeric value', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("ww");
+
+                        expect(formatted).to.equal("01");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-03-10';
+                        date = moment(dateString);
+                        formatted = date.format("ww");
+
+                        expect(formatted).to.equal("10");
+
+                        done();
+                    });
                 });
             });
 
             describe('Week of Year (ISO)', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('W - numeric value', function() {
+                    it('valid week', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("W");
+
+                        expect(formatted).to.equal("52");
+
+                        done();
+                    });
+                });
+                describe('Wo - cardinal value', function() {
+                    it('cardinal - st', function(done) {
+                        dateString = '2017-01-08';
+                        date = moment(dateString);
+                        formatted = date.format("Wo");
+
+                        expect(formatted).to.equal("1st");
+
+                        done();
+                    });
+                    it('cardinal - nd', function(done) {
+                        dateString = '2017-01-015';
+                        date = moment(dateString);
+                        formatted = date.format("Wo");
+
+                        expect(formatted).to.equal("2nd");
+
+                        done();
+                    });
+                    it('cardinal - rd', function(done) {
+                        dateString = '2017-01-22';
+                        date = moment(dateString);
+                        formatted = date.format("Wo");
+
+                        expect(formatted).to.equal("3rd");
+
+                        done();
+                    });
+                    it('cardinal - th', function(done) {
+                        dateString = '2017-01-29';
+                        date = moment(dateString);
+                        formatted = date.format("Wo");
+
+                        expect(formatted).to.equal("4th");
+
+                        done();
+                    });
+                });
+                describe('WW - two digit numeric value', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-08';
+                        date = moment(dateString);
+                        formatted = date.format("WW");
+
+                        expect(formatted).to.equal("01");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-03-10';
+                        date = moment(dateString);
+                        formatted = date.format("WW");
+
+                        expect(formatted).to.equal("10");
+
+                        done();
+                    });
                 });
             });
 
 
             describe('Year', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('YY - last two digit numeric value', function() {
+                    it('valid year', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("YY");
+
+                        expect(formatted).to.equal("17");
+
+                        done();
+                    });
+                });
+                describe('YYYY - full numeric value', function() {
+                    it('valid year', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("YYYY");
+
+                        expect(formatted).to.equal("2017");
+
+                        done();
+                    });
+                });
+                describe('Y - full ISO value', function() {
+                    it('less than 10000', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("Y");
+
+                        expect(formatted).to.equal("2017");
+
+                        done();
+                    });
+                    it('greater than 10000', function(done) {
+                        dateString = '20170-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("Y");
+
+                        expect(formatted).to.equal("+20170");
+
+                        done();
+                    });
                 });
             });
 
             describe('Week Year', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('gg - last two digit numeric value', function() {
+                    it('valid year', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("gg");
+
+                        expect(formatted).to.equal("17");
+
+                        done();
+                    });
+                });
+                describe('gggg - full numeric value', function() {
+                    it('valid year', function(done) {
+                        dateString = '2017-01-01';
+                        date = moment(dateString);
+                        formatted = date.format("gggg");
+
+                        expect(formatted).to.equal("2017");
+
+                        done();
+                    });
                 });
             });
 
             describe('Weak Year (ISO)', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('GG - last two digit numeric value', function() {
+                    it('valid year', function(done) {
+                        dateString = '2017-02-01';
+                        date = moment(dateString);
+                        formatted = date.format("GG");
+
+                        expect(formatted).to.equal("17");
+
+                        done();
+                    });
+                });
+                describe('GGGG - full numeric value', function() {
+                    it('valid year', function(done) {
+                        dateString = '2017-02-01';
+                        date = moment(dateString);
+                        formatted = date.format("GGGG");
+
+                        expect(formatted).to.equal("2017");
+
+                        done();
+                    });
                 });
             });
 
             describe('AM/PM', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('A - capital', function() {
+                    it('AM', function(done) {
+                        dateString = '2017-01-01T00';
+                        date = moment(dateString);
+                        formatted = date.format("A");
+
+                        expect(formatted).to.equal("AM");
+
+                        done();
+                    });
+                    it('PM', function(done) {
+                        dateString = '2017-01-01T12';
+                        date = moment(dateString);
+                        formatted = date.format("A");
+
+                        expect(formatted).to.equal("PM");
+
+                        done();
+                    });
+                });
+                describe('a - lowercase', function() {
+                    it('am', function(done) {
+                        dateString = '2017-01-01T00';
+                        date = moment(dateString);
+                        formatted = date.format("a");
+
+                        expect(formatted).to.equal("am");
+
+                        done();
+                    });
+                    it('pm', function(done) {
+                        dateString = '2017-01-01T12';
+                        date = moment(dateString);
+                        formatted = date.format("a");
+
+                        expect(formatted).to.equal("pm");
+
+                        done();
+                    });
                 });
             });
 
             describe('Hour', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('H - 0 indexed 24 hour', function() {
+                    it('less than 12 ', function(done) {
+                        dateString = '2017-01-01T00';
+                        date = moment(dateString);
+                        formatted = date.format("H");
+
+                        expect(formatted).to.equal("0");
+
+                        done();
+                    });
+                    it('12 or more', function(done) {
+                        dateString = '2017-01-01T12';
+                        date = moment(dateString);
+                        formatted = date.format("H");
+
+                        expect(formatted).to.equal("12");
+
+                        done();
+                    });
+                });
+                describe('HH - two digit 0 indexed 24 hour', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-01T01';
+                        date = moment(dateString);
+                        formatted = date.format("HH");
+
+                        expect(formatted).to.equal("01");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-01-01T10';
+                        date = moment(dateString);
+                        formatted = date.format("HH");
+
+                        expect(formatted).to.equal("10");
+
+                        done();
+                    });
+                });
+                describe('h - 12 hour', function() {
+                    it('less than 12 ', function(done) {
+                        dateString = '2017-01-01T01';
+                        date = moment(dateString);
+                        formatted = date.format("h");
+
+                        expect(formatted).to.equal("1");
+
+                        done();
+                    });
+                    it('12 or more', function(done) {
+                        dateString = '2017-01-01T13';
+                        date = moment(dateString);
+                        formatted = date.format("h");
+
+                        expect(formatted).to.equal("1");
+
+                        done();
+                    });
+                });
+                describe('hh - two digit ', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-01T01';
+                        date = moment(dateString);
+                        formatted = date.format("hh");
+
+                        expect(formatted).to.equal("01");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-01-01T10';
+                        date = moment(dateString);
+                        formatted = date.format("hh");
+
+                        expect(formatted).to.equal("10");
+
+                        done();
+                    });
+                });
+                describe('k - 24 hour starting 24', function() {
+                    it('less than 12 ', function(done) {
+                        dateString = '2017-01-01T00';
+                        date = moment(dateString);
+                        formatted = date.format("k");
+
+                        expect(formatted).to.equal("24");
+
+                        done();
+                    });
+                    it('12 or more', function(done) {
+                        dateString = '2017-01-01T12';
+                        date = moment(dateString);
+                        formatted = date.format("k");
+
+                        expect(formatted).to.equal("12");
+
+                        done();
+                    });
+                });
+                describe('kk - 2 digit 24 hour starting 24', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-01T01';
+                        date = moment(dateString);
+                        formatted = date.format("kk");
+
+                        expect(formatted).to.equal("01");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-01-01T10';
+                        date = moment(dateString);
+                        formatted = date.format("kk");
+
+                        expect(formatted).to.equal("10");
+
+                        done();
+                    });
                 });
             });
 
             describe('Minute', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('m- numeric value', function() {
+                    it('valid minute', function(done) {
+                        dateString = '2017-01-01T00:01';
+                        date = moment(dateString);
+                        formatted = date.format("m");
+
+                        expect(formatted).to.equal("1");
+
+                        done();
+                    });
+                });
+                describe('mm - two digit numeric value', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-01T00:01';
+                        date = moment(dateString);
+                        formatted = date.format("mm");
+
+                        expect(formatted).to.equal("01");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-01-01T00:10';
+                        date = moment(dateString);
+                        formatted = date.format("mm");
+
+                        expect(formatted).to.equal("10");
+
+                        done();
+                    });
                 });
             });
 
             describe('Second', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('s', function() {
+                    it('valid second', function(done) {
+                        dateString = '2017-01-01T00:00:01';
+                        date = moment(dateString);
+                        formatted = date.format("s");
+
+                        expect(formatted).to.equal("1");
+
+                        done();
+                    });
+                });
+                describe('ss', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-01T00:00:01';
+                        date = moment(dateString);
+                        formatted = date.format("ss");
+
+                        expect(formatted).to.equal("01");
+
+                        done();
+                    });
+                    it('double digit', function(done) {
+                        dateString = '2017-01-01T00:00:10';
+                        date = moment(dateString);
+                        formatted = date.format("ss");
+
+                        expect(formatted).to.equal("10");
+
+                        done();
+                    });
                 });
             });
 
             describe('Fractional Second', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('S - single digit', function() {
+                    it('single digit', function(done) {
+                        dateString = '2017-01-01T00:00:00';
+                        date = moment(dateString);
+                        formatted = date.format("S");
+
+                        expect(formatted).to.equal("0");
+
+                        done();
+                    });
+                });
+                describe('SS - double digit digit', function() {
+                    it('double digit', function(done) {
+                        dateString = '2017-01-01T00:00:00';
+                        date = moment(dateString);
+                        formatted = date.format("SS");
+
+                        expect(formatted).to.equal("00");
+
+                        done();
+                    });
+                });
+                describe('SSS - triple digit', function() {
+                    it('triple digit', function(done) {
+                        dateString = '2017-01-01T00:00:00';
+                        date = moment(dateString);
+                        formatted = date.format("SSS");
+
+                        expect(formatted).to.equal("000");
+
+                        done();
+                    });
+                });
+                describe('SSSS ... - 4 or more digits', function() {
+                    it('8 digits', function(done) {
+                        dateString = '2017-01-01T00:00:00';
+                        date = moment(dateString);
+                        formatted = date.format("SSSSSSSS");
+
+                        expect(formatted).to.equal("00000000");
+
+                        done();
+                    });
                 });
             });
 
             describe('Time Zone', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('Z - timezone offset with colon', function() {
+                    it('valid time', function(done) {
+                        dateString = '2017-01-01T00:00:00';
+                        date = moment(dateString);
+                        formatted = date.format("Z");
+
+                        expect(formatted).to.equal("-07:00");
+
+                        done();
+                    });
+                });
+                describe('ZZ - timezone offset no colon', function() {
+                    it('valid time', function(done) {
+                        dateString = '2017-01-01T00:00:00';
+                        date = moment(dateString);
+                        formatted = date.format("ZZ");
+
+                        expect(formatted).to.equal("-0700");
+
+                        done();
+                    });
                 });
             });
 
             describe('Unix Timestamp', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('X - timestamp in seconds', function() {
+                    it('valid time', function(done) {
+                        dateString = '2017-01-01T00:00:00';
+                        date = moment(dateString);
+                        formatted = date.format("X");
+
+                        expect(formatted).to.equal("1483254000");
+
+                        done();
+                    });
                 });
             });
 
             describe('Unix Millisecond Timestamp', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('x - timestamp in milliseconds', function() {
+                    it('valid time', function(done) {
+                        dateString = '2017-01-01T00:00:00';
+                        date = moment(dateString);
+                        formatted = date.format("x");
+
+                        expect(formatted).to.equal("1483254000000");
+
+                        done();
+                    });
                 });
             });
-
-
-
-
-
         });
 
         describe('Localization', function() {
             describe('Time', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('LT', function() {
+                    it('local time from offset', function(done) {
+                        dateString = '2017-01-01T00:00:00-09:00';
+                        date = moment(dateString);
+                        formatted = date.format("LT");
+
+                        expect(formatted).to.equal("2:00 AM");
+
+                        done();
+                    });
                 });
             });
 
             describe('Time With Seconds', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('LTS', function() {
+                    it('local time with seconds from offset', function(done) {
+                        dateString = '2017-01-01T00:00:00-09:00';
+                        date = moment(dateString);
+                        formatted = date.format("LTS");
+
+                        expect(formatted).to.equal("2:00:00 AM");
+
+                        done();
+                    });
                 });
             });
 
             describe('Month numeral, day of month, year', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('L - MM/DD/YYYY zero padded', function() {
+                    it('MM/DD/YYYY', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("L");
+
+                        expect(formatted).to.equal("01/15/2017");
+
+                        done();
+                    });
+                });
+                describe('l - MM/DD/YYYY not zero padded', function() {
+                    it('MM/DD/YYYY', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("l");
+
+                        expect(formatted).to.equal("1/15/2017");
+
+                        done();
+                    });
                 });
             });
 
             describe('Month name, day of month, year', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('LL - MMMM DD, YYYY', function() {
+                    it('MMMM DD, YYYY', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("LL");
+
+                        expect(formatted).to.equal("January 15, 2017");
+
+                        done();
+                    });
+                });
+                describe('ll - MMM DD, YYYY', function() {
+                    it('MMM DD, YYYY', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("ll");
+
+                        expect(formatted).to.equal("Jan 15, 2017");
+
+                        done();
+                    });
                 });
             });
 
             describe('Month name, day of month, year, time', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('LLL - MMMM DD, YYYY LT', function() {
+                    it('MMMM DD, YYYY LT', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("LLL");
+
+                        expect(formatted).to.equal("January 15, 2017 12:00 AM");
+
+                        done();
+                    });
+                });
+                describe('lll - MMM DD, YYYY LT', function() {
+                    it('MMM DD, YYYY LT', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("lll");
+
+                        expect(formatted).to.equal("Jan 15, 2017 12:00 AM");
+
+                        done();
+                    });
                 });
             });
 
             describe('Month name, day of month, day of week, year, time', function() {
-                it('dummy test', function(done) {
-                    done();
+                describe('LLLL - dddd, MMMM DD, YYYY LT', function() {
+                    it('dddd, MMMM DD, YYYY LT', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("LLLL");
+
+                        expect(formatted).to.equal("Sunday, January 15, 2017 12:00 AM");
+
+                        done();
+                    });
+                });
+                describe('llll - ddd, MMM DD, YYYY LT', function() {
+                    it('ddd, MMM DD, YYYY LT', function(done) {
+                        dateString = '2017-01-15';
+                        date = moment(dateString);
+                        formatted = date.format("llll");
+
+                        expect(formatted).to.equal("Sun, Jan 15, 2017 12:00 AM");
+
+                        done();
+                    });
                 });
             });
         });
-
 
         describe('Escape characters', function() {
-
-            describe('square brackets', function() {
-                it('dummy test', function(done) {
-                    done();
-                });
-            });
-        });
-
-        describe('Invalid date', function() {
-            it('invalid date', function(done) {
-                // somehow get a string/date that can be reused
-                const dateString = '2017-13-45';
+            it('without escape characters', function(done) {
+                dateString = '2017-01-15';
                 date = moment(dateString);
+                formatted = date.format("Y YY");
 
-                expect(date._isValid).to.equal(false);
-                expect(date.format()).to.equal('Invalid date')
+                expect(formatted).to.equal("2017 17");
+
+                done();
+            });
+            it('with escape characters', function(done) {
+                dateString = '2017-01-15';
+                date = moment(dateString);
+                formatted = date.format("[Y] YY");
+
+                expect(formatted).to.equal("Y 17");
 
                 done();
             });
         });
+
+        // @TODO talk about this one?
+        // if non-implemented characters are used in format() they will be
+        // printed even if they aren't escaped, instead of throwing error
+        describe('Invalid token', function() {
+            it('invalid token', function(done) {
+                dateString = '2017-01-01T00:00:00';
+                date = moment(dateString);
+                formatted = date.format("j");
+
+                expect(formatted).to.equal("j");
+
+                done();
+            });
+        });
+
+        // // @TODO maybe
+        // describe('Combined format', function() {
+        //     it('combined format', function(done) {
+        //         // somehow get a string/date that can be reused
+        //         const dateString = '2017-13-45';
+        //         date = moment(dateString);
+        //
+        //         expect(date._isValid).to.equal(false);
+        //         expect(date.format()).to.equal('Invalid date')
+        //
+        //         done();
+        //     });
+        // });
     });
 
     /**
@@ -283,73 +1297,5 @@ const expect = chai.expect;
          });
      });
 
- });
 
- describe('Display - Black Box', function() {
-
-         /**
-          * Test format
-          */
-         describe('Format', function() {
-
-             describe('Displaying with default format (no args)', function() {
-
-                 it('should display in ISO 8601 format (default)', function(done) {
-                     // somehow get a string/date that can be reused
-                     const dateString = '2013-02-08';
-                     const date = moment(dateString).format();
-                     const expected_result = '2013-02-08T00:00:00-07:00';
-
-                     expect(date).to.equal(expected_result);
-
-                     done();
-                 });
-
-             });
-         });
-
-         /**
-          * Test time from now
-          */
-         describe('Time From Now', function() {
-             describe('dummy test', function() {
-                 it('dummy test', function(done) {
-                     done();
-                 });
-             });
-         });
-
-         /**
-          * Test time to now
-          */
-          describe('Time To Now', function() {
-              describe('dummy test', function() {
-                  it('dummy test', function(done) {
-                      done();
-                  });
-              });
-          });
-
-         /**
-          * Test in ISO 8601
-          */
-          describe('ISO 8601', function() {
-              describe('dummy test', function() {
-                  it('dummy test', function(done) {
-                      done();
-                  });
-              });
-          });
-
-         /**
-          * Test JSON
-          */
-          describe('JSON', function() {
-              describe('dummy test', function() {
-                  it('dummy test', function(done) {
-                      done();
-                  });
-              });
-          });
-
- });
+});
