@@ -42,6 +42,35 @@ const expect = chai.expect;
             done();
         });
         
+        it('should set correct millisecond value with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.millisecond(213.7);
+            expect(date.millisecond()).to.equal(213);
+        
+            done();
+        });
+        
+        it('should set correct millisecond value with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.millisecond('305');
+            expect(date.millisecond()).to.equal(305);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.millisecond('BadInput');
+            expect(date.millisecond()).to.equal(123);
+
+            done();
+        });
+        
     });
     
     describe('Second Operations', function() {
@@ -78,6 +107,35 @@ const expect = chai.expect;
             date.second(-13);
             expect(date.second()).to.equal(47);
             expect(date.minute()).to.equal(29);
+            done();
+        });
+        
+        it('should set correct second value with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.second(52.7);
+            expect(date.second()).to.equal(52);
+        
+            done();
+        });
+        
+        it('should set correct second value with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.second('54');
+            expect(date.second()).to.equal(54);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.second('BadInput');
+            expect(date.second()).to.equal(26);
+
             done();
         });
         
@@ -118,6 +176,35 @@ const expect = chai.expect;
             date.minute(-54);
             expect(date.minute()).to.equal(6);
             expect(date.hour()).to.equal(8);
+            done();
+        });
+       
+       it('should set correct minute value with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.minute(12.8);
+            expect(date.minute()).to.equal(12);
+        
+            done();
+        });
+        
+        it('should set correct minute value with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.minute('12');
+            expect(date.minute()).to.equal(12);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.minute('BadInput');
+            expect(date.minute()).to.equal(30);
+
             done();
         });
         
@@ -161,6 +248,35 @@ const expect = chai.expect;
             done();
         });
         
+        it('should set correct hour value with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.hour(7.9);
+            expect(date.hour()).to.equal(7);
+        
+            done();
+        });
+        
+        it('should set correct hour value with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.hour('2');
+            expect(date.hour()).to.equal(2);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.hour('BadInput');
+            expect(date.hour()).to.equal(9);
+
+            done();
+        });
+        
     });
     
     describe('Day of Month Operations', function() {
@@ -198,6 +314,35 @@ const expect = chai.expect;
             date.date(-7);
             expect(date.date()).to.equal(24);
             expect(date.month()).to.equal(0);
+            done();
+        });
+        
+        it('should set correct day value with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.date(21.6);
+            expect(date.date()).to.equal(21);
+        
+            done();
+        });
+        
+        it('should set correct day value with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.date('22');
+            expect(date.date()).to.equal(22);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.date('BadInput');
+            expect(date.date()).to.equal(8);
+
             done();
         });
         
@@ -256,6 +401,35 @@ const expect = chai.expect;
             date.day(-3);
             expect(date.day()).to.equal(4);
             expect(date.week()).to.equal(5);
+            done();
+        });
+        
+        it('should set correct day of week with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.day(3.7);
+            expect(date.day()).to.equal(3);
+        
+            done();
+        });
+        
+        it('should set correct day of week with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.day('2');
+            expect(date.day()).to.equal(2);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            
+            date.day('BadInput');
+            expect(date.day()).to.equal(5);
             done();
         });
         
@@ -325,6 +499,35 @@ const expect = chai.expect;
             done();
         });
         
+        it('should set correct month value with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.month(10.9);
+            expect(date.month()).to.equal(10);
+        
+            done();
+        });
+        
+        it('should set correct month value with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.month('3');
+            expect(date.month()).to.equal(3);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.month('BadInput');
+            expect(date.month()).to.equal(1);
+
+            done();
+        });
+        
     });
     
     describe('Day of Year Operations', function() {
@@ -364,6 +567,35 @@ const expect = chai.expect;
             expect(date.dayOfYear()).to.equal(319);
             expect(date.month()).to.equal(10);
             expect(date.year()).to.equal(2012);
+            done();
+        });
+        
+        it('should set correct day of year with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.dayOfYear(156.8);
+            expect(date.dayOfYear()).to.equal(156);
+        
+            done();
+        });
+        
+        it('should set correct day of year with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.dayOfYear('291');
+            expect(date.dayOfYear()).to.equal(291);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.dayOfYear('BadInput');
+            expect(date.dayOfYear()).to.equal(39);
+
             done();
         });
         
@@ -410,6 +642,35 @@ const expect = chai.expect;
             done();
         });
         
+        it('should set correct quarter with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.quarter(2.7);
+            expect(date.quarter()).to.equal(2);
+        
+            done();
+        });
+        
+        it('should set correct quarter with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.quarter('1');
+            expect(date.quarter()).to.equal(1);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.quarter('BadInput');
+            expect(date.quarter()).to.equal(1);
+
+            done();
+        });
+        
     });
     
     describe('Year Operations', function() {
@@ -431,7 +692,50 @@ const expect = chai.expect;
             done();
         });
         
+        it('should return NaN due to year greater than max allowed', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.year(300000);
+            expect(date.year()).to.be.NaN;
+            done();
+        });
         
+        it('should return NaN due to year greater than max allowed', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.year(-300000);
+            expect(date.year()).to.be.NaN;
+            done();
+        });
+        
+        it('should set correct year value with floating point number', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            date.year(2039.8);
+            expect(date.year()).to.equal(2039);
+        
+            done();
+        });
+        
+        it('should set correct year with string', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.year('2016');
+            expect(date.year()).to.equal(2016);
+
+            done();
+        });
+        
+        it('should remain unchanged due to invalid input', function(done) {
+            const dateString = '2013-02-08 09:30:26.123';
+            date = moment(dateString);
+            
+            date.year('BadInput');
+            expect(date.year()).to.equal(2013);
+
+            done();
+        });
     });
     
 });
