@@ -28,7 +28,7 @@ describe('Date Manipulation', function() {
         describe('Add', function() {
             
             describe('Equivalence Class Testing: (Number, String)', function() {
-                describe('Valid Equivalence classes for String: ', function() {
+                describe('Valid Equivalence classes: ', function() {
                     it('should add 1 year to moment, given (1, \'y\')', function(done) {
                         const testMoment = moment('2013-02-08');
                         testMoment.add(1,'y');
@@ -232,7 +232,7 @@ describe('Date Manipulation', function() {
                         done();
                     })
                 });
-                describe('Invalid Equivalence Classes for String: ', function() {
+                describe('Invalid Equivalence Classes: ', function() {
                     it('should NOT add 1 quarter to moment, given (1, \'q\')', function(done) {
                         const testMoment = moment('2013-02-08');
                         currentQuarter = testMoment.quarter();
@@ -298,7 +298,7 @@ describe('Date Manipulation', function() {
          */
         describe('Subtract', function() {
             describe('Equivalence Class Testing: (Number, String)', function() {
-                describe('Valid Equivalence classes for String: ', function() {
+                describe('Valid Equivalence classes: ', function() {
                     it('should subtract 1 year from moment, given (1, \'y\')', function(done) {
                         const testMoment = moment('2013-02-08');
                         testMoment.subtract(1,'y');
@@ -500,7 +500,7 @@ describe('Date Manipulation', function() {
                         done();
                     })
                 });
-                describe('Invalid Equivalence Classes for String: ', function() {
+                describe('Invalid Equivalence Classes: ', function() {
                     it('should NOT subtract 1 quarter from moment, given (1, \'q\')', function(done) {
                         const testMoment = moment('2013-02-08');
                         currentQuarter = testMoment.quarter();
@@ -552,6 +552,7 @@ describe('Date Manipulation', function() {
          */
         describe('Start of Time', function() {
             it('should start of time', function(done) {
+                
                 done();
             });
         });
@@ -570,6 +571,9 @@ describe('Date Manipulation', function() {
          */
         describe('Local', function() {
             it('should local', function(done) {
+                const testMoment = moment([2015,0,1,8]).utc();
+                testMoment.local();
+                expect(testMoment.hour()).to.equal(1);
                 done();
             });
         });
@@ -583,12 +587,5 @@ describe('Date Manipulation', function() {
             });
         });
 
-        /**
-         * Test OTC Offset
-         */
-        describe('OTC Offset', function() {
-            it('otc offset stuff', function(done) {
-                done();
-            });
-        });
+
 });
