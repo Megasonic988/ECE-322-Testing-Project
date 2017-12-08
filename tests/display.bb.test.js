@@ -988,8 +988,8 @@ const expect = chai.expect;
             done();
         });
         describe('0-44 seconds (key: s) -> a few seconds ago', function() {
-            it('44 seconds', function(done) {
-                fromNow = (moment().subtract(44, 's')).fromNow();
+            it('43 seconds', function(done) {
+                fromNow = (moment().subtract(43, 's')).fromNow();
                 expect(fromNow).to.equal("a few seconds ago");
                 done();
             });
